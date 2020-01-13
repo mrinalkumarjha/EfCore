@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace DotnetCoreEf
 {
@@ -18,9 +19,20 @@ namespace DotnetCoreEf
             
 
             CustomerEfContext context = new CustomerEfContext();
-            context.Database.EnsureCreated(); // this line ensures the  database and table created automatically. 
-            context.Add(customer); // Adds in inmemory
-            context.SaveChanges(); // physical commit
+            //FLOWER : from > let > ORDER By > WHERE >
+
+            // updating
+
+            // here i get customer by linq
+            var cust = (from x in context.Customers
+                    where x.CustomerId == 1
+                    select x).ToList<Customer>()[0];
+            cust.CustomerName = "Karan";
+            context.SaveChanges();
+            //context.Database.EnsureCreated(); // this line ensures the  database and table created automatically. 
+            ////context.Database.ExecuteSqlCommand("select * from tblcustomer")  // execute raw sql
+            //context.Add(customer); // Adds in inmemory
+            //context.SaveChanges(); // physical commit
 
         }
     }
