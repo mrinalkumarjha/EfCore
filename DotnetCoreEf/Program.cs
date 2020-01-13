@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DotnetCoreEf
@@ -12,6 +14,8 @@ namespace DotnetCoreEf
             customer.CustomerId = 1;
             customer.CustomerCode = "C001";
             customer.CustomerName = "Mrinal";
+            customer.Addresses.Add(new Address() {Id=1, Address1 = "delhi" });
+            
 
             CustomerEfContext context = new CustomerEfContext();
             context.Database.EnsureCreated(); // this line ensures the  database and table created automatically. 
@@ -23,10 +27,27 @@ namespace DotnetCoreEf
 
     class Customer // Model // Object
     {
+        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int CustomerId { get; set; }
         public string CustomerCode { get; set; }
         public string CustomerName { get; set; }
+
+        // one to many relationship
+        public List<Address> Addresses { get; set; }
+
+        public Customer()
+        {
+            this.Addresses = new List<Address>();
+        }
+    }
+
+    class Address
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int Id { get; set; }
+        public string Address1 { get; set; }
     }
     class CustomerEfContext: DbContext
     {
