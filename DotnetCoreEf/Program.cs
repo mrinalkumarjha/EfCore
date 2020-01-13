@@ -19,7 +19,7 @@ namespace DotnetCoreEf
             
 
             CustomerEfContext context = new CustomerEfContext();
-            //FLOWER : from > let > ORDER By > WHERE >
+            //FLOWER : from > let > ORDER By > WHERE >  // way linq query is written
 
             // updating
 
