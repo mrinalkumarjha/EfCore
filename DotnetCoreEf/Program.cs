@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DotnetCoreEf
 {
@@ -13,6 +14,7 @@ namespace DotnetCoreEf
             customer.CustomerName = "Mrinal";
 
             CustomerEfContext context = new CustomerEfContext();
+            context.Database.EnsureCreated(); // this line ensures the  database and table created automatically. 
             context.Add(customer); // Adds in inmemory
             context.SaveChanges(); // physical commit
 
@@ -21,6 +23,7 @@ namespace DotnetCoreEf
 
     class Customer // Model // Object
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int CustomerId { get; set; }
         public string CustomerCode { get; set; }
         public string CustomerName { get; set; }
