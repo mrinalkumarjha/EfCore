@@ -11,24 +11,49 @@ namespace DotnetCoreEf
     {
         static void Main(string[] args)
         {
-            Customer customer = new Customer();
-            customer.CustomerId = 1;
-            customer.CustomerCode = "C001";
-            customer.CustomerName = "Mrinal";
-            customer.Addresses.Add(new Address() {Id=1, Address1 = "delhi" });
+            // Update using repository start
+            IUow uow = new EfUow();
+            IRepository<Customer> repository = null;
+            IRepository<Address> repAddress = null;
             
 
-            CustomerEfContext context = new CustomerEfContext();
+            repository.SetUow(uow);
+            repAddress.SetUow(uow);
+
+            repository.Add(new Customer() { }); // add inmemory
+            repository.Save();  // final commit
+
+          
+            repAddress.Add(new Address());
+            repAddress.Save();
+
+
+            uow.Commit();
+            //uow.Rollback();
+
+            // Update using repository end
+
+
+
+
+            //Customer customer = new Customer();
+            //customer.CustomerId = 1;
+            //customer.CustomerCode = "C001";
+            //customer.CustomerName = "Mrinal";
+            //customer.Addresses.Add(new Address() {Id=1, Address1 = "delhi" });
+            
+
+            //CustomerEfContext context = new CustomerEfContext();
             //FLOWER : from > let > ORDER By > WHERE >  // way linq query is written
 
             // updating
 
             // here i get customer by linq
-            var cust = (from x in context.Customers
-                    where x.CustomerId == 1
-                    select x).ToList<Customer>()[0];
-            cust.CustomerName = "aaa";
-            context.SaveChanges();
+            //var cust = (from x in context.Customers
+            //        where x.CustomerId == 1
+            //        select x).ToList<Customer>()[0];
+            //cust.CustomerName = "aaa";
+            //context.SaveChanges();
             //context.Database.EnsureCreated(); // this line ensures the  database and table created automatically. 
             ////context.Database.ExecuteSqlCommand("select * from tblcustomer")  // execute raw sql
             //context.Add(customer); // Adds in inmemory
@@ -91,7 +116,12 @@ namespace DotnetCoreEf
         }
     }
 
-
+    // Unit of work
+    public interface IUow
+    {
+        void Commit();
+        void Rollback();
+    }
 
 
     // Generic Repository pattern
@@ -101,6 +131,10 @@ namespace DotnetCoreEf
         bool Update();
         List<T> Search();
 
+        void Save(); // will do final commit
+
+        void SetUow(IUow uow);
+          
     }
 
     public class RepositoryOfCustomer : IRepository<Customer>
@@ -110,7 +144,17 @@ namespace DotnetCoreEf
             throw new NotImplementedException();
         }
 
+        public void Save()
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Customer> Search()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetUow(IUow uow)
         {
             throw new NotImplementedException();
         }
@@ -121,5 +165,73 @@ namespace DotnetCoreEf
         }
     }
 
+    public abstract class CommonRepository<T> : IRepository<T> where T:class
+    {
+        List<T> inmemory = new List<T>();
+        public virtual void Add(T anyModel)
+        {
+            inmemory.Add(anyModel); // common code for inmemory insertiion
+        }
+
+        public abstract void Save();
+
+        public abstract List<T> Search();
+
+        public abstract void SetUow(IUow uow);
+
+
+        public abstract bool Update();
+
+    }
+
+
+    public class EfCommon<T> : CommonRepository<T> where T : class
+    {
+
+        DbSet<T> db = null;
+        EfUow uow = null;
+        public override void Save()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override List<T> Search()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void SetUow(IUow uow)
+        {
+            this.uow = (EfUow)uow;
+        }
+
+        public override bool Update()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+
+    public class EfUow : DbContext, IUow
+    {
+        public EfUow()
+        {
+
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(@"Data Source=MRINAL\SQLEXPRESS;Initial Catalog=EfCore;Integrated Security=True");
+        }
+        public void Commit()
+        {
+            this.SaveChanges();
+        }
+
+        public void Rollback()
+        {
+            this.Dispose();
+        }
+    }
 
 }
