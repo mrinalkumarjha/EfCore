@@ -27,7 +27,7 @@ namespace DotnetCoreEf
             var cust = (from x in context.Customers
                     where x.CustomerId == 1
                     select x).ToList<Customer>()[0];
-            cust.CustomerName = "Karan";
+            cust.CustomerName = "aaa";
             context.SaveChanges();
             //context.Database.EnsureCreated(); // this line ensures the  database and table created automatically. 
             ////context.Database.ExecuteSqlCommand("select * from tblcustomer")  // execute raw sql
@@ -43,6 +43,8 @@ namespace DotnetCoreEf
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int CustomerId { get; set; }
         public string CustomerCode { get; set; }
+
+        [ConcurrencyCheck] // optimistic concurrency check . it will check while updating record if data has changed or not
         public string CustomerName { get; set; }
 
         // one to many relationship
