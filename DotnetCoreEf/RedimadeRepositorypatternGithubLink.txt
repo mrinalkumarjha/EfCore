@@ -1,0 +1,3 @@
+﻿https://github.com/mparlak/Repository.Pattern.EF
+
+https://github.com/urfnet/URF.NET
