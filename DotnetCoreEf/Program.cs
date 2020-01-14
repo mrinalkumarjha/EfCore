@@ -37,7 +37,7 @@ namespace DotnetCoreEf
         }
     }
 
-    class Customer // Model // Object
+    public class Customer // Model // Object
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -56,7 +56,7 @@ namespace DotnetCoreEf
         }
     }
 
-    class Address
+    public class Address
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -90,4 +90,36 @@ namespace DotnetCoreEf
             optionsBuilder.UseSqlServer(@"Data Source=MRINAL\SQLEXPRESS;Initial Catalog=EfCore;Integrated Security=True");
         }
     }
+
+
+
+
+    // Generic Repository pattern
+    public interface IRepository<T> where T: class
+    {
+        void Add(T anyModel);
+        bool Update();
+        List<T> Search();
+
+    }
+
+    public class RepositoryOfCustomer : IRepository<Customer>
+    {
+        public void Add(Customer anyModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Customer> Search()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Update()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+
 }
