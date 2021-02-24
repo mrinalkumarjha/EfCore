@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotnetCoreEf", "DotnetCoreEf\DotnetCoreEf.csproj", "{2F923D86-254D-4678-AC97-0AFD3CE37BA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetCoreEf", "DotnetCoreEf\DotnetCoreEf.csproj", "{2F923D86-254D-4678-AC97-0AFD3CE37BA5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFCore5.Domain", "EFCore5.Domain\EFCore5.Domain.csproj", "{F1392CDF-E9C0-46E3-A165-3B1E3941DD33}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFCore5.Data", "EFCore5.Data\EFCore5.Data.csproj", "{E77F21F0-DFA4-4ED3-BFF5-204CAF5604CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFCore5.UI", "EFCore5.UI\EFCore5.UI.csproj", "{12D19B8D-6F49-495F-B21C-E34A341B26A3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{2F923D86-254D-4678-AC97-0AFD3CE37BA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F923D86-254D-4678-AC97-0AFD3CE37BA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F923D86-254D-4678-AC97-0AFD3CE37BA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1392CDF-E9C0-46E3-A165-3B1E3941DD33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1392CDF-E9C0-46E3-A165-3B1E3941DD33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1392CDF-E9C0-46E3-A165-3B1E3941DD33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1392CDF-E9C0-46E3-A165-3B1E3941DD33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E77F21F0-DFA4-4ED3-BFF5-204CAF5604CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E77F21F0-DFA4-4ED3-BFF5-204CAF5604CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E77F21F0-DFA4-4ED3-BFF5-204CAF5604CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E77F21F0-DFA4-4ED3-BFF5-204CAF5604CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12D19B8D-6F49-495F-B21C-E34A341B26A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12D19B8D-6F49-495F-B21C-E34A341B26A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12D19B8D-6F49-495F-B21C-E34A341B26A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12D19B8D-6F49-495F-B21C-E34A341B26A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
